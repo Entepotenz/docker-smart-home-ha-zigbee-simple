@@ -1,0 +1,25 @@
+# HomeAssistant
+homeassistant_volume/.cloud
+homeassistant_volume/.storage
+homeassistant_volume/blueprints
+homeassistant_volume/deps
+homeassistant_volume/tts
+homeassistant_volume/.HA_VERSION
+homeassistant_volume/*.log
+homeassistant_volume/*.log.*
+homeassistant_volume/*.db
+homeassistant_volume/*.db-*
+homeassistant_volume/.cache
+homeassistant_volume/.bash_history
+
+# mosquitto
+mosquitto_volume/mosquitto-data
+mosquitto_volume/mosquitto-log
+
+# zigbee2mqtt
+zigbee2mqtt_volume/log
+zigbee2mqtt_volume/state.json
+zigbee2mqtt_volume/database.db
+
+# environment variables
+.env

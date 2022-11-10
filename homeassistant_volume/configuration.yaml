@@ -1,0 +1,23 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+homeassistant:
+  name: Home
+  legacy_templates: false
+  packages:
+    zigbee2mqtt: !include zigbee2mqtt.yaml
+
+# logger:
+#   default: info
+
+automation: !include automations.yaml
+binary_sensor: !include binary_sensors.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+zone: !include zone.yaml
+sensor: !include sensor.yaml
+switch: !include switch.yaml
+device_tracker: !include device_tracker.yaml
+button: !include button.yaml
+template: !include template.yaml

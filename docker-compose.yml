@@ -1,0 +1,86 @@
+version: '3.7'
+services:
+  zigbee2mqtt:
+    image: koenkk/zigbee2mqtt
+    restart: unless-stopped
+    volumes:
+      - "./zigbee2mqtt_volume:/app/data"
+      - /run/udev:/run/udev:ro
+    ports:
+      # Frontend port
+      - 8080:8080
+    environment:
+      TZ: ${TZ}
+    user: "${PUID}:${PGID_DIALOUT}"
+    devices:
+      # Make sure this matched your adapter location
+      - /dev/ttyUSB0:/dev/ttyACM0
+    networks:
+      mqtt:
+    depends_on:
+      - mosquitto
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    restart: unless-stopped
+    # ports:
+    #   - 1883:1883
+    #   - 8883:8883
+    user: "${PUID}:${PGID}"
+    volumes:
+      - "./mosquitto_volume/mosquitto-data:/mosquitto/data"
+      - "./mosquitto_volume/mosquitto-log:/mosquitto/log"
+      - "./mosquitto_volume/mosquitto-conf:/mosquitto/config"
+    environment:
+      TZ: ${TZ}
+    networks:
+      mqtt:
+        aliases:
+          - mosquitto
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  homeassistant:
+    image: "lscr.io/linuxserver/homeassistant:latest"
+    container_name: homeassistant
+    restart: unless-stopped
+    # enable this to automatically discover and configure zeroconf/mDNS and UPnP devices
+    # network_mode: host
+    # user: "${PUID}:${PGID}"
+    volumes:
+      - "./homeassistant_volume/:/config"
+      - "/etc/localtime:/etc/localtime:ro"
+    ports:
+      - 8123:8123
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    networks:
+      mqtt:
+    depends_on:
+      - mosquitto
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  watchtower:
+    image: containrrr/watchtower
+    restart: always
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/etc/timezone:/etc/timezone:ro"
+    environment:
+      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_LABEL_ENABLE: "true"
+      WATCHTOWER_INCLUDE_RESTARTING: "true"
+      TZ: ${TZ}
+      WATCHTOWER_SCHEDULE: "0 0 3 * * SAT" # Run saturday at 3am; Cron expression in 6 fields (rather than the traditional 5)
+      WATCHTOWER_ROLLING_RESTART: "true"
+      WATCHTOWER_TIMEOUT: "60s"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+networks:
+  mqtt:
