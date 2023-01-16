@@ -6,13 +6,13 @@ This is intended as a solid starting point to get your smart-home running :-)
 
 ## Features
 - HomeAssistant using the image provided by linuxserver.io
-    - https://hub.docker.com/r/linuxserver/homeassistant
+  - [https://hub.docker.com/r/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant)
 - Zigbee2Mqtt
-    - https://www.zigbee2mqtt.io/guide/installation/02_docker.html
+  - [https://www.zigbee2mqtt.io/guide/installation/02_docker.html](https://www.zigbee2mqtt.io/guide/installation/02_docker.html)
 - Mosquitto
-    - https://hub.docker.com/_/eclipse-mosquitto
+  - [https://hub.docker.com/_/eclipse-mosquitto](https://hub.docker.com/_/eclipse-mosquitto)
 - Watchtower (for automatically updating your containers)
-    - https://containrrr.dev/watchtower/
+  - [https://containrrr.dev/watchtower/](https://containrrr.dev/watchtower/)
 
 ## How to use
 
