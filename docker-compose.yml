@@ -14,7 +14,7 @@ services:
     user: "${PUID}:${PGID_DIALOUT}"
     devices:
       # Make sure this matched your adapter location
-      - /dev/ttyUSB0:/dev/ttyACM0
+      - "${ZIGBEE_DEVICE_PATH}:/dev/ttyACM0"
     networks:
       mqtt:
     depends_on:
