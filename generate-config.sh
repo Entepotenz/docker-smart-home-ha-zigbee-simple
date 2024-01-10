@@ -5,7 +5,7 @@ set -o pipefail
 set -o nounset
 if [[ "${TRACE-0}" == "1" ]]; then set -o xtrace; fi
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 DOCKER_ENV_FILE="$SCRIPT_DIR/.env"
 
 PUID=$(id -u)
@@ -28,4 +28,4 @@ chmod u=rw,g=,o= "$DOCKER_ENV_FILE"
     echo "PGID_DIALOUT=$PGID_DIALOUT"
     echo "TZ=$TZ"
     echo "ZIGBEE_DEVICE_PATH=$ZIGBEE_DEVICE_PATH"
-} > "$DOCKER_ENV_FILE"
+} >"$DOCKER_ENV_FILE"
